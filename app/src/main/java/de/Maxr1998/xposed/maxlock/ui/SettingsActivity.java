@@ -33,6 +33,7 @@ import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.CompoundButton;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
@@ -46,12 +47,16 @@ import de.Maxr1998.xposed.maxlock.lib.StatusBarTintApi;
 import de.Maxr1998.xposed.maxlock.ui.settings.GuideFragment;
 import de.Maxr1998.xposed.maxlock.ui.settings.SettingsFragment;
 import de.Maxr1998.xposed.maxlock.ui.settings.Startup;
+import de.Maxr1998.xposed.maxlock.ui.settings.appslist.AppListFragment;
 
 public class SettingsActivity extends AppCompatActivity implements AuthenticationSucceededListener {
 
     private static final String TAG_SETTINGS_FRAGMENT = "tag_settings_fragment";
+    private static final String TAG_APP_LIST="AppListFragment";
     private static boolean UNLOCKED = false;
     public SettingsFragment mSettingsFragment;
+    public AppListFragment appListFragment;
+    public static boolean firststart=true;
     SharedPreferences prefs;
     private BillingProcessor billingProcessor;
 
@@ -65,10 +70,22 @@ public class SettingsActivity extends AppCompatActivity implements Authenticatio
             setTheme(R.style.AppTheme);
         }
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_settings);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //getActionBar().setHomeButtonEnabled(true);
+        //getActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.text_color_white));
+        toolbar.setNavigationIcon(R.drawable.ic_back);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        appListFragment=(AppListFragment)getSupportFragmentManager().findFragmentByTag(TAG_APP_LIST);
         mSettingsFragment = (SettingsFragment) getSupportFragmentManager().findFragmentByTag(TAG_SETTINGS_FRAGMENT);
         if (mSettingsFragment == null) {
             getSupportActionBar().hide();
@@ -93,7 +110,7 @@ public class SettingsActivity extends AppCompatActivity implements Authenticatio
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
         SwitchCompat master_switch = (SwitchCompat) MenuItemCompat.getActionView(menu.findItem(R.id.toolbar_master_switch));
-        master_switch.setChecked(getSharedPreferences(Common.PREFS_PACKAGES, Context.MODE_WORLD_READABLE).getBoolean(Common.MASTER_SWITCH_ON, true));
+        master_switch.setChecked(getSharedPreferences(Common.PREFS_PACKAGES, Context.MODE_WORLD_READABLE).getBoolean(Common.MASTER_SWITCH_ON, false));
         master_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @SuppressLint({"CommitPrefEdits"})
             @Override
@@ -145,6 +162,7 @@ public class SettingsActivity extends AppCompatActivity implements Authenticatio
         if (mSettingsFragment == null) {
             mSettingsFragment = new SettingsFragment();
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_container, mSettingsFragment, TAG_SETTINGS_FRAGMENT).commit();
+
             getSupportActionBar().show();
         }
     }

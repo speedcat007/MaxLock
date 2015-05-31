@@ -4,6 +4,8 @@
     android:layout_height="wrap_content"
     android:baselineAligned="false"
     android:gravity="center_vertical"
+    android:padding="16dp"
+    android:background="@drawable/card_background_white"
     android:minHeight="@dimen/toolbar_height">
 
     <RelativeLayout
@@ -54,15 +56,19 @@
             android:tint="?attr/colorAccent"
             android:tintMode="src_atop" />
 
-        <ToggleButton
+        <RadioButton
             android:id="@+id/toggleLock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:layout_marginEnd="24dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="24dp"
             android:layout_marginStart="8dp"
-            android:textOff="@string/toggle_lock_off"
-            android:textOn="@string/toggle_lock_on" />
+            android:button="@drawable/toggle_selector"
+             />
+        <!--
+
+        android:textOff="@string/toggle_lock_off"
+        android:textOn="@string/toggle_lock_on"-->
     </LinearLayout>
 </LinearLayout> 

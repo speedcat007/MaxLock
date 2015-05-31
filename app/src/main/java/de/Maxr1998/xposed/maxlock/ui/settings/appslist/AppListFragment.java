@@ -32,6 +32,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -69,6 +70,8 @@ import de.Maxr1998.xposed.maxlock.Common;
 import de.Maxr1998.xposed.maxlock.R;
 import de.Maxr1998.xposed.maxlock.Util;
 import de.Maxr1998.xposed.maxlock.ui.SettingsActivity;
+import de.Maxr1998.xposed.maxlock.ui.settings.GuideFragment;
+import de.Maxr1998.xposed.maxlock.ui.settings.SettingsFragment;
 import xyz.danoz.recyclerviewfastscroller.sectionindicator.title.SectionTitleIndicator;
 import xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScroller;
 
@@ -88,6 +91,18 @@ public class AppListFragment extends Fragment {
 
     public static void clearList() {
         finalList = null;
+    }
+
+    public static void launchFragment(Fragment fragment, boolean fromRoot, Fragment from) {
+        if (fromRoot) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)
+                from.getFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            else
+                from.getFragmentManager().popBackStack();
+        }
+        from.getFragmentManager().beginTransaction().replace(R.id.frame_container, fragment, fragment instanceof AppListFragment ? "AppListFragment" : fragment instanceof GuideFragment ? "GuideFragment" : null).addToBackStack(null).commit();
+        if (from.getFragmentManager().findFragmentById(R.id.settings_fragment) != null)
+            from.getFragmentManager().beginTransaction().show(from.getFragmentManager().findFragmentById(R.id.settings_fragment)).commit();
     }
 
     @Override
@@ -246,6 +261,10 @@ public class AppListFragment extends Fragment {
                         }
                     });
                     return true;
+                case R.id.toolbar_setting:
+                    launchFragment(new SettingsFragment(),true,this);
+                    return true;
+
                 case R.id.toolbar_clear_list:
                     //noinspection deprecation
                     getActivity().getSharedPreferences(Common.PREFS_PACKAGES, Context.MODE_WORLD_READABLE).edit().clear().commit();

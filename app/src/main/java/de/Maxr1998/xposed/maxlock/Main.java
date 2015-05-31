@@ -66,8 +66,10 @@ public class Main implements IXposedHookZygoteInit, IXposedHookLoadPackage {
                 reload();
                 final Activity app = (Activity) param.thisObject;
 
-                Long unlockTimestamp = Math.max(PREFS_PACKAGES.getLong(packageName + "_tmp", 0), PreferenceManager.getDefaultSharedPreferences(app).getLong("MaxLockLastUnlock", 0));
-                if (!PREFS_PACKAGES.getBoolean(packageName, false) || (unlockTimestamp != 0 && System.currentTimeMillis() - unlockTimestamp <= 500)) {
+                Long unlockTimestamp = Math.max(PREFS_PACKAGES.getLong(packageName + "_tmp", 0),
+                        PreferenceManager.getDefaultSharedPreferences(app).getLong("MaxLockLastUnlock", 0));
+                if (!PREFS_PACKAGES.getBoolean(packageName, false) || (unlockTimestamp != 0
+                        && System.currentTimeMillis() - unlockTimestamp <= 500)) {
                     return;
                 }
                 if (app.getClass().getName().equals("android.app.Activity") ||
@@ -76,7 +78,8 @@ public class Main implements IXposedHookZygoteInit, IXposedHookLoadPackage {
                     return;
                 }
                 app.moveTaskToBack(true);
-                launchLockView(app, app.getIntent(), packageName, PREFS_PACKAGES.getBoolean(packageName + "_fake", false) ? ".ui.FakeDieDialog" : ".ui.LockActivity");
+                launchLockView(app, app.getIntent(), packageName, PREFS_PACKAGES.getBoolean(
+                        packageName + "_fake", false) ? ".ui.FakeDieDialog" : ".ui.LockActivity");
             }
         });
 
@@ -84,22 +87,27 @@ public class Main implements IXposedHookZygoteInit, IXposedHookLoadPackage {
         findAndHookMethod("android.app.Activity", lpparam.classLoader, "onPause", new XC_MethodHook() {
             @Override
             protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
-                PreferenceManager.getDefaultSharedPreferences((Activity) param.thisObject).edit().putLong("MaxLockLastUnlock", System.currentTimeMillis()).commit();
+                PreferenceManager.getDefaultSharedPreferences((Activity) param.thisObject).edit()
+                        .putLong("MaxLockLastUnlock", System.currentTimeMillis()).commit();
             }
         });
 
         // Handling activity starts inside package
         findAndHookMethod("android.app.Instrumentation", lpparam.classLoader, "execStartActivity",
-                Context.class, IBinder.class, IBinder.class, Activity.class, Intent.class, int.class, Bundle.class,
-                new XC_MethodHook() {
+                Context.class, IBinder.class, IBinder.class, Activity.class, Intent.class, int.class,
+                Bundle.class,new XC_MethodHook() {
                     @Override
                     protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
                         boolean set = false;
-                        if (!((Intent) param.args[4]).getComponent().getPackageName().equals(MY_PACKAGE_NAME) && !LockHelper.NO_UNLOCK.contains(param.args[0].getClass().getName())) {
-                            PreferenceManager.getDefaultSharedPreferences((Context) param.args[0]).edit().putLong("MaxLockLastUnlock", System.currentTimeMillis()).commit();
+                        if (!((Intent) param.args[4]).getComponent().getPackageName().equals(MY_PACKAGE_NAME)
+                                && !LockHelper.NO_UNLOCK.contains(param.args[0].getClass().getName())) {
+                            PreferenceManager.getDefaultSharedPreferences((Context) param.args[0]).edit()
+                                    .putLong("MaxLockLastUnlock", System.currentTimeMillis()).commit();
                             set = true;
                         }
-                        XposedBridge.log(param.args[0].getClass().getName() + " started Intent " + ((Intent) param.args[4]).getComponent().getClassName() + " at " + System.currentTimeMillis() + ", " + (set ? "" : "not ") + "unlocked.");
+                        XposedBridge.log(param.args[0].getClass().getName() + " started Intent " +
+                                ((Intent) param.args[4]).getComponent().getClassName() + " at " +
+                                System.currentTimeMillis() + ", " + (set ? "" : "not ") + "unlocked.");
                     }
                 });
     }

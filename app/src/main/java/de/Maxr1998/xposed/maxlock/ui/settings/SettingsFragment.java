@@ -125,6 +125,10 @@ public class SettingsFragment extends PreferenceFragment implements BillingProce
             UNINSTALL.setTitle(R.string.uninstall);
             UNINSTALL.setSummary("");
         }
+        if(SettingsActivity.firststart==true){
+            SettingsActivity.firststart=false;
+            launchFragment(new AppListFragment(),true,this);
+        }
         return super.onCreateView(paramLayoutInflater, paramViewGroup, paramBundle);
     }
 
@@ -136,7 +140,7 @@ public class SettingsFragment extends PreferenceFragment implements BillingProce
             version = "Error getting app version";
             e.printStackTrace();
         }
-        Preference about = findPreference(Common.ABOUT);
+
         CheckBoxPreference ep = (CheckBoxPreference) findPreference(Common.ENABLE_PRO);
         String appName;
         if (BillingHelper.donated(getActivity().getApplicationContext(), getBp())) {
@@ -153,7 +157,7 @@ public class SettingsFragment extends PreferenceFragment implements BillingProce
             appName = getString(R.string.app_name) + " Indev";
         }
         getActivity().setTitle(appName);
-        about.setTitle(appName + version);
+
     }
 
     @Override
@@ -193,12 +197,6 @@ public class SettingsFragment extends PreferenceFragment implements BillingProce
             }
         } else if (preference == findPreference(Common.USE_DARK_STYLE) || preference == findPreference(Common.ENABLE_PRO)) {
             ((SettingsActivity) getActivity()).restart();
-            return true;
-        } else if (preference == findPreference(Common.ABOUT)) {
-            Util.showAbout(getActivity());
-            return true;
-        } else if (preference == findPreference(Common.DONATE)) {
-            BillingHelper.showDialog(getBp(), getActivity());
             return true;
         } else if (preference == findPreference(Common.UNINSTALL)) {
             if (!isDeviceAdminActive()) {

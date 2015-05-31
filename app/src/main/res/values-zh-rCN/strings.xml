@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MaxLock</string>
+    <string name="app_name">AppLock</string>
     <string name="placeholder">占位符</string>
-    <string name="restart_required">MaxLock需要重新启动以让更改生效</string>
+    <string name="restart_required">AppLock需要重新启动以让更改生效</string>
     <string name="toast_pro_required">使用此功能需要专业版本！</string>
 
     <!-- Main screen -->
@@ -104,19 +104,19 @@
     <string name="reboot_required">可能需要重新启动以应用更改</string>
     <string name="pref_use_dark_style">使用黑色风格</string>
 
-    <string name="pref_category_about">关于</string>
-    <string name="app_name_pro">MaxLock专业版</string>
-    <string name="app_name_pseudo_pro">MaxLock假冒专业版</string>
-    <string name="pref_about_summary">Copyright &#169; 2014&#8211;2015 by Maxr1998\n点击这里查看更多信息</string>
+    <string name="pref_category_about">附加功能</string>
+    <string name="app_name_pro">AppLock</string>
+    <string name="app_name_pseudo_pro">AppLock</string>
+    <string name="pref_about_summary">Copyright &#169; 2014&#8211;2015 by SGGroup\n点击这里查看更多信息</string>
     <string name="pref_donate_upgrade_pro">捐助后将升级为专业版</string>
     <string name="pref_enable_pro">开启专业版</string>
     <string name="pref_enable_pro_summary">这将开启专业版功能,即使您没有购买</string>
     <string name="prevent_uninstall">保护应用程序被卸载</string>
-    <string name="prevent_uninstall_summary">MaxLock在设备管理器权限打勾应用程序将无法卸载
+    <string name="prevent_uninstall_summary">AppLock在设备管理器权限打勾应用程序将无法卸载
 		卸载这个程序您必须在\“设置→安全→设备管理器\”这里或禁用管理员权限,然后卸载</string>
     <string name="uninstall">卸载</string>
 
-    <string name="device_admin_description">保护MaxLock防止被卸载和禁用</string>
+    <string name="device_admin_description">保护AppLock防止被卸载和禁用</string>
 
     <string name="dialog_like_app">您喜欢这个应用吗?</string>
     <string name="dialog_like_app_text">如果您这样做了,请在Play Store留下您的评论或考虑捐赠 :)</string>

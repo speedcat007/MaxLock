@@ -17,18 +17,11 @@
 
 package de.Maxr1998.xposed.maxlock.ui.settings;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
-import android.view.View;
-import android.widget.CheckBox;
 
 import com.nispok.snackbar.Snackbar;
 import com.nispok.snackbar.SnackbarManager;
@@ -36,11 +29,9 @@ import com.nispok.snackbar.enums.SnackbarType;
 
 import java.io.File;
 
-import de.Maxr1998.xposed.maxlock.BillingHelper;
 import de.Maxr1998.xposed.maxlock.Common;
 import de.Maxr1998.xposed.maxlock.R;
 import de.Maxr1998.xposed.maxlock.Util;
-import de.Maxr1998.xposed.maxlock.ui.SettingsActivity;
 
 public class Startup extends AsyncTask<Boolean, Void, Void> {
 
@@ -76,7 +67,7 @@ public class Startup extends AsyncTask<Boolean, Void, Void> {
             prefs.edit().putBoolean(Common.IMOD_DELAY_GLOBAL_ENABLED, false).apply();
         }
         // Like app dialog
-        if (!prefs.getBoolean(Common.DIALOG_SHOW_NEVER, false) && System.currentTimeMillis() - prefs.getLong(Common.FIRST_START_TIME, System.currentTimeMillis()) > 10 * 24 * 3600 * 1000) {
+        /*if (!prefs.getBoolean(Common.DIALOG_SHOW_NEVER, false) && System.currentTimeMillis() - prefs.getLong(Common.FIRST_START_TIME, System.currentTimeMillis()) > 10 * 24 * 3600 * 1000) {
             showDialog = true;
             builder = new AlertDialog.Builder(mContext);
             @SuppressLint("InflateParams") View dialogView = ((Activity) mContext).getLayoutInflater().inflate(R.layout.dialog_like_app, null);
@@ -106,7 +97,7 @@ public class Startup extends AsyncTask<Boolean, Void, Void> {
                     .setPositiveButton(R.string.dialog_button_donate, onClickListener)
                     .setNeutralButton(R.string.dialog_button_rate, onClickListener)
                     .setNegativeButton(android.R.string.cancel, onClickListener);
-        }
+        }*/
         // SnackBar with alert
         @SuppressWarnings("ConstantConditions")
         boolean noLockType = prefs.getString(Common.LOCKING_TYPE, "").equals("");

@@ -4,7 +4,7 @@
     <color name="text_color_white">#dd000000</color>
     <color name="light_white">#55ffffff</color>
     <color name="divider">#e5e5e5</color>
-
+    <item name="gray_drawable" type="drawable">#FF2c5aa9</item>
     <!-- App colors -->
     <color name="primary_red">#e51c23</color>
     <color name="primary_red_dark">#d01716</color>

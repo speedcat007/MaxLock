@@ -52,14 +52,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_category_about">
-        <Preference
-            android:key="about"
-            android:summary="@string/pref_about_summary"
-            android:title="@string/app_name" />
 
-        <Preference
-            android:key="donate_upgrade_pro"
-            android:title="@string/pref_donate_upgrade_pro" />
 
         <CheckBoxPreference
             android:defaultValue="false"

@@ -46,9 +46,9 @@ import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.haibison.android.lockpattern.LockPatternActivity;
 
@@ -211,9 +211,10 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppsList
         hld.toggle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToggleButton tb = (ToggleButton) v;
-                boolean value = tb.isChecked();
-                if (value) {
+                RadioButton rb = (RadioButton) v;
+                boolean value = prefsPackages.getBoolean(key, false);
+
+                if (!value) {
                     prefsPackages.edit()
                             .putBoolean(key, true)
                             .commit();
@@ -222,8 +223,11 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppsList
                     anim.addAnimation(AnimationUtils.loadAnimation(mContext, R.anim.appslist_settings_translate));
                     hld.options.startAnimation(anim);
                     hld.options.setVisibility(View.VISIBLE);
+                    rb.setChecked(true);
                 } else {
                     prefsPackages.edit().remove(key).commit();
+                    rb.setChecked(true);
+
                     AnimationSet animOut = new AnimationSet(true);
                     animOut.addAnimation(AnimationUtils.loadAnimation(mContext, R.anim.appslist_settings_rotate_out));
                     animOut.addAnimation(AnimationUtils.loadAnimation(mContext, R.anim.appslist_settings_translate_out));
@@ -249,7 +253,10 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppsList
                     });
                     hld.options.startAnimation(animOut);
                 }
+
+                notifyDataSetChanged();
             }
+
         });
     }
 
@@ -292,14 +299,14 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.AppsList
         public ImageView appIcon;
         public TextView appName;
         public ImageButton options;
-        public ToggleButton toggle;
+        public RadioButton toggle;
 
         public AppsListViewHolder(View itemView) {
             super(itemView);
             appIcon = (ImageView) itemView.findViewById(R.id.icon);
             appName = (TextView) itemView.findViewById(R.id.title);
             options = (ImageButton) itemView.findViewById(R.id.edit);
-            toggle = (ToggleButton) itemView.findViewById(R.id.toggleLock);
+            toggle = (RadioButton) itemView.findViewById(R.id.toggleLock);
         }
     }
 

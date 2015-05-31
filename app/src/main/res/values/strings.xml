@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">MaxLock</string>
+    <string name="app_name">AppLock</string>
     <string name="placeholder">Placeholder</string>
-    <string name="restart_required">MaxLock requires a restart for changes to take effect</string>
+    <string name="restart_required">AppLock requires a restart for changes to take effect</string>
     <string name="toast_pro_required">Pro-version is required to use this feature!</string>
 
     <!-- Main screen -->
@@ -104,19 +104,19 @@
     <string name="reboot_required">A reboot may be required to apply changes</string>
     <string name="pref_use_dark_style">Use dark style</string>
 
-    <string name="pref_category_about">About</string>
-    <string name="app_name_pro">MaxLock Pro</string>
-    <string name="app_name_pseudo_pro">MaxLock PseudoPro</string>
-    <string name="pref_about_summary">Copyright &#169; 2014&#8211;2015 by Maxr1998\nClick to see more information</string>
+    <string name="pref_category_about">Others</string>
+    <string name="app_name_pro">AppLock Pro</string>
+    <string name="app_name_pseudo_pro">AppLock PseudoPro</string>
+    <string name="pref_about_summary">Copyright &#169; 2014&#8211;2015 by SGGroup\nClick to see more information</string>
     <string name="pref_donate_upgrade_pro">Donate to upgrade to pro-version</string>
     <string name="pref_enable_pro">Enable Pro</string>
-    <string name="pref_enable_pro_summary">This will enable pro-features even if you haven\'t bought MaxLock Pro</string>
+    <string name="pref_enable_pro_summary">This will enable pro-features even if you haven\'t bought AppLock Pro</string>
     <string name="prevent_uninstall">Protect app from being uninstalled</string>
-    <string name="prevent_uninstall_summary">Acquire device administrator permissions for MaxLock, resulting the app cannot be uninstalled anymore.
+    <string name="prevent_uninstall_summary">Acquire device administrator permissions for AppLock, resulting the app cannot be uninstalled anymore.
         You then have to uninstall this app either from here or deactivate admin from \"Settings → Security → Device administrators\" and then uninstall</string>
     <string name="uninstall">Uninstall</string>
 
-    <string name="device_admin_description">Protect MaxLock from being uninstalled and disabled</string>
+    <string name="device_admin_description">Protect AppLock from being uninstalled and disabled</string>
 
     <string name="dialog_like_app">Do you love the app?</string>
     <string name="dialog_like_app_text">If you do, please leave a review in Play Store and also consider donating :)</string>

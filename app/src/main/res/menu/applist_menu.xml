@@ -20,4 +20,7 @@
     <item
         android:id="@+id/toolbar_clear_list"
         android:title="@string/clear_list" />
+    <item
+        android:id="@+id/toolbar_setting"
+        android:title="设置"/>
 </menu>
